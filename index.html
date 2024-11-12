@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Alumnos</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        h2 { color: #333; }
+        form { margin-bottom: 20px; }
+        label { display: block; margin-top: 10px; }
+        input { padding: 8px; width: 100%; max-width: 300px; }
+        button { margin-top: 10px; padding: 10px 15px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #218838; }
+        .alumnos-list { margin-top: 20px; }
+        .alumno-item { padding: 10px; border-bottom: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <h2>Registro de Alumnos</h2>
+
+    <form id="registrationForm">
+        <label for="name">Nombre del Alumno:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="phone">Número de Teléfono:</label>
+        <input type="tel" id="phone" name="phone" required>
+
+        <button type="submit">Registrar Alumno</button>
+    </form>
+
+    <h3>Lista de Alumnos Registrados</h3>
+    <div class="alumnos-list" id="alumnosList"></div>
+
+    <script>
+        // Array para almacenar los alumnos registrados
+        let alumnos = [];
+
+        // Función para actualizar la lista de alumnos en la página
+        function actualizarLista() {
+            const alumnosList = document.getElementById('alumnosList');
+            alumnosList.innerHTML = ''; // Limpiar la lista
+
+            alumnos.forEach((alumno, index) => {
+                const alumnoDiv = document.createElement('div');
+                alumnoDiv.classList.add('alumno-item');
+                alumnoDiv.innerHTML = `<strong>${index + 1}. ${alumno.name}</strong> - Tel: ${alumno.phone}`;
+                alumnosList.appendChild(alumnoDiv);
+            });
+        }
+
+        // Manejar el envío del formulario
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Obtener los datos del formulario
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+
+            // Añadir el nuevo alumno al array
+            alumnos.push({ name: name, phone: phone });
+
+            // Actualizar la lista de alumnos
+            actualizarLista();
+
+            // Limpiar el formulario
+            document.getElementById('registrationForm').reset();
+        });
+    </script>
+</body>
+</html>
